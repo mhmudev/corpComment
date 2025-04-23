@@ -8,7 +8,7 @@ export default function HashtagItem({
   onSelectCompany,
 }: HashtagItemProps) {
   return (
-    <li key={company}>
+    <li>
       <button onClick={() => onSelectCompany(company)}>#{company}</button>
     </li>
   );
