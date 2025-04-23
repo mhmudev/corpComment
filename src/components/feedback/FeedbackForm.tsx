@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MAX_CHARS } from "../lib/constants";
+import { MAX_CHARS } from "../../lib/constants";
 
 type FeedbackFormProps = {
   onAddFeedback: (text: string) => void;
