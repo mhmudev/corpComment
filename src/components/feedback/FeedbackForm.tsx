@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { MAX_CHARS } from "../../lib/constants";
-import { useFeedbackItemsContext } from "../../lib/hooks";
+import { useFeedbackItemsStore } from "../../stores/feedbackStore";
 
 export default function FeedbackForm() {
-  const { handleAddFeedback: onAddFeedback } = useFeedbackItemsContext();
+  const addFeedback = useFeedbackItemsStore((state) => state.addFeedback);
+
   const [text, setText] = useState("");
   const [showValidIndicator, setShowValidIndicator] = useState(false);
   const [showInvalidIndicator, setShowInvalidIndicator] = useState(false);
@@ -28,7 +29,7 @@ export default function FeedbackForm() {
       setTimeout(() => setShowInvalidIndicator(false), 2000);
       return;
     }
-    onAddFeedback(text);
+    addFeedback(text);
     setText("");
   };
 
