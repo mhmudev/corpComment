@@ -3,7 +3,7 @@ import { FeedbackType } from "../../lib/types";
 import { useState } from "react";
 import { io } from "socket.io-client";
 
-const socket = io("https://corp-comment-beta.vercel.app");
+const socket = io("https://corpcomment-production.up.railway.app");
 
 type FeedbackItemPropsType = { feedback: FeedbackType };
 
