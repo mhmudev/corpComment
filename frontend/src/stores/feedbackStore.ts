@@ -87,24 +87,17 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
   },
   setFeedbacks: (feedback) => {
     console.log("feedback", feedback);
-    const newFeedback: FeedbackType = {
-      text: feedback.text,
-      daysAgo: 0,
-      upvoteCount: 0,
-      company: feedback.company,
-      badgeLetter: feedback.badgeLetter,
-    };
 
     set((state) => {
       const isFeedbackExists = state.feedbacks.some(
-        (f) => f._id === newFeedback._id
+        (f) => f._id === feedback._id
       );
 
       if (isFeedbackExists) {
         return { feedbacks: state.feedbacks };
       }
 
-      return { feedbacks: [...state.feedbacks, newFeedback] };
+      return { feedbacks: [...state.feedbacks, feedback] };
     });
   },
 }));
