@@ -4,7 +4,6 @@ import { useFeedbackItemsStore } from "../../stores/feedbackStore";
 
 export default function FeedbackForm() {
   const addFeedback = useFeedbackItemsStore((state) => state.addFeedback);
-
   const [text, setText] = useState("");
   const [showValidIndicator, setShowValidIndicator] = useState(false);
   const [showInvalidIndicator, setShowInvalidIndicator] = useState(false);
