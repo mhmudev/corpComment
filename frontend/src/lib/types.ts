@@ -1,5 +1,5 @@
 export type FeedbackType = {
-  id: number;
+  _id?: string;
   upvoteCount: number;
   badgeLetter: string;
   company: string;

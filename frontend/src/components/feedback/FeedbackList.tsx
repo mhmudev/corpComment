@@ -14,8 +14,8 @@ export default function FeedbackList() {
     <ol className="feedback-list">
       {isLoading && <Spinner />}
       {errorMessage && <ErrorMessage message={errorMessage} />}
-      {filteredFeedbacks.map((feedback) => (
-        <FeedbackItem key={feedback.id} feedback={feedback} />
+      {filteredFeedbacks.map((feedback, index) => (
+        <FeedbackItem key={feedback._id ?? index} feedback={feedback} />
       ))}
     </ol>
   );

@@ -41,7 +41,6 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
       .substring(1);
 
     const newFeedback: FeedbackType = {
-      id: new Date().getTime(),
       text: text,
       daysAgo: 0,
       upvoteCount: 0,
@@ -71,7 +70,7 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
       }
 
       const data = await response.json();
-      set(() => ({ feedbacks: data.feedbacks }));
+      set(() => ({ feedbacks: data }));
     } catch (error) {
       set(() => ({
         errorMessage: "Something went wrong.",
@@ -81,8 +80,8 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
   },
 
   selectCompany: (company: string) => {
-    set(() => ({
-      selectedCompany: company,
+    set((state) => ({
+      selectedCompany: state.selectedCompany === company ? "" : company,
     }));
   },
 }));
