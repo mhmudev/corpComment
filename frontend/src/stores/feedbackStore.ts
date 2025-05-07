@@ -97,7 +97,7 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
         return { feedbacks: state.feedbacks };
       }
 
-      return { feedbacks: [...state.feedbacks, feedback] };
+      return { feedbacks: [...state.feedbacks, { ...feedback, daysAgo: 0 }] };
     });
   },
 }));
