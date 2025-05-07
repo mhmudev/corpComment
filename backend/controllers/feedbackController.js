@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Feedback = require("../models/feedbackModel");
 const { body, validationResult } = require("express-validator");
+const { getIO } = require("../socket");
 
 // GET all feedbacks
 exports.getFeedbacks = asyncHandler(async (req, res) => {
@@ -40,6 +41,11 @@ exports.createFeedback = [
       );
     }
     const feedback = await Feedback.create(req.body);
+
+    const io = getIO();
+    io.emit("newFeedback", feedback);
+    console.log("newFeedback emitted");
+
     res.status(201).json(feedback);
   }),
 ];

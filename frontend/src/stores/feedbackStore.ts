@@ -11,6 +11,7 @@ type Store = {
   addFeedback: (text: string) => Promise<void>;
   fetchFeedbacks: () => Promise<void>;
   selectCompany: (company: string) => void;
+  setFeedbacks: (feedback: FeedbackType) => void;
 };
 
 export const useFeedbackItemsStore = create<Store>((set, get) => ({
@@ -83,5 +84,27 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
     set((state) => ({
       selectedCompany: state.selectedCompany === company ? "" : company,
     }));
+  },
+  setFeedbacks: (feedback) => {
+    console.log("feedback", feedback);
+    const newFeedback: FeedbackType = {
+      text: feedback.text,
+      daysAgo: 0,
+      upvoteCount: 0,
+      company: feedback.company,
+      badgeLetter: feedback.badgeLetter,
+    };
+
+    set((state) => {
+      const isFeedbackExists = state.feedbacks.some(
+        (f) => f._id === newFeedback._id
+      );
+
+      if (isFeedbackExists) {
+        return { feedbacks: state.feedbacks };
+      }
+
+      return { feedbacks: [...state.feedbacks, newFeedback] };
+    });
   },
 }));
