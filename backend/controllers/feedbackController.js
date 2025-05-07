@@ -5,7 +5,19 @@ const { body, validationResult } = require("express-validator");
 // GET all feedbacks
 exports.getFeedbacks = asyncHandler(async (req, res) => {
   const feedbacks = await Feedback.find();
-  res.json(feedbacks);
+  const feedbacksWithDaysAgo = feedbacks.map((fb) => {
+    const now = new Date();
+    const created = new Date(fb.createdAt);
+    const diffTime = Math.abs(now - created);
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+    return {
+      ...fb._doc,
+      daysAgo: diffDays,
+    };
+  });
+
+  res.json(feedbacksWithDaysAgo);
 });
 
 // CREATE feedback
