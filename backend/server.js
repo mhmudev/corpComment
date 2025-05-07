@@ -1,5 +1,6 @@
 const express = require("express");
 const dotenv = require("dotenv").config();
+const cors = require("cors");
 const mongoose = require("mongoose");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const feedbackRoutes = require("./routes/feedbackRoutes");
@@ -7,6 +8,7 @@ const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Connect MongoDB
 mongoose

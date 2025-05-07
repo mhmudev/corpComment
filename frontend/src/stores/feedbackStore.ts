@@ -50,23 +50,20 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
     };
 
     set((state) => ({ feedbacks: [...state.feedbacks, newFeedback] }));
-    await fetch(
-      "https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks",
-      {
-        method: "POST",
-        body: JSON.stringify(newFeedback),
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-        },
-      }
-    );
+    await fetch("https://corpcomment-production.up.railway.app/api/feedbacks", {
+      method: "POST",
+      body: JSON.stringify(newFeedback),
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+    });
   },
   fetchFeedbacks: async () => {
     set(() => ({ isLoading: true }));
     try {
       const response = await fetch(
-        "https://bytegrad.com/course-assets/projects/corpcomment/api/feedbacks"
+        "https://corpcomment-production.up.railway.app/api/feedbacks"
       );
 
       if (!response.ok) {
