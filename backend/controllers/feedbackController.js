@@ -3,6 +3,8 @@ const Feedback = require("../models/feedbackModel");
 const { body, validationResult } = require("express-validator");
 const { getIO } = require("../socket");
 
+const io = getIO();
+
 // GET all feedbacks
 exports.getFeedbacks = asyncHandler(async (req, res) => {
   const feedbacks = await Feedback.find();
@@ -41,7 +43,6 @@ exports.createFeedback = [
     }
     const feedback = await Feedback.create(req.body);
 
-    const io = getIO();
     io.emit("newFeedback", feedback);
     console.log("newFeedback emitted");
 
@@ -99,5 +100,8 @@ exports.upvoteFeedback = asyncHandler(async (req, res) => {
   }
   feedback.upvoteCount += 1;
   const updated = await feedback.save();
+
+  io.emit("upvoted", updated.upvoteCount);
+
   res.json(updated);
 });

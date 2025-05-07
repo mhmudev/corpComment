@@ -1,6 +1,9 @@
 import { TriangleUpIcon } from "@radix-ui/react-icons";
 import { FeedbackType } from "../../lib/types";
 import { useState } from "react";
+import { io } from "socket.io-client";
+
+const socket = io("https://corpcomment-production.up.railway.app");
 
 type FeedbackItemPropsType = { feedback: FeedbackType };
 
@@ -23,10 +26,15 @@ export default function FeedbackItem({ feedback }: FeedbackItemPropsType) {
       }
     );
 
+    const errorData = await response.json();
     if (!response.ok) {
-      const errorData = await response.json();
       throw new Error(errorData.message || `Error: ${response.status}`);
     }
+
+    socket.on("upvoted", (upvoted) => {
+      console.log("Received new vote:", upvoted);
+      setUpvoteCount(errorData.upvoteCount);
+    });
   };
   return (
     <li
