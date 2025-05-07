@@ -33,7 +33,7 @@ export default function FeedbackItem({ feedback }: FeedbackItemPropsType) {
 
     socket.on("upvoted", (upvoted) => {
       console.log("Received new vote:", upvoted);
-      setUpvoteCount(errorData.upvoteCount);
+      setUpvoteCount(upvoted);
     });
   };
   return (
