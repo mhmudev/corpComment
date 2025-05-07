@@ -26,7 +26,6 @@ exports.createFeedback = [
   body("company").notEmpty(),
   body("badgeLetter").notEmpty(),
   body("upvoteCount").optional().isInt(),
-  body("daysAgo").isInt(),
   body("text").notEmpty().contains("#"),
 
   asyncHandler(async (req, res) => {

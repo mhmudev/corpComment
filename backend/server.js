@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const feedbackRoutes = require("./routes/feedbackRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+require("./scripts/clearFeedbacks");
 
 const http = require("http");
 const socket = require("./socket");
