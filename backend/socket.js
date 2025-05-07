@@ -4,7 +4,7 @@ function init(server) {
   const { Server } = require("socket.io");
   ioInstance = new Server(server, {
     cors: {
-      origin: "http://localhost:5173",
+      origin: "https://corp-comment-beta.vercel.app",
       methods: ["GET", "POST"],
     },
   });
