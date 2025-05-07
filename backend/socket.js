@@ -5,7 +5,7 @@ function init(server) {
   ioInstance = new Server(server, {
     cors: {
       origin: "https://corp-comment-beta.vercel.app",
-      methods: ["GET", "POST"],
+      methods: ["GET", "POST", "PATCH"],
     },
   });
   console.log("IO Initialized");
