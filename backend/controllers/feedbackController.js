@@ -98,8 +98,6 @@ exports.upvoteFeedback = asyncHandler(async (req, res) => {
   }
   feedback.upvoteCount += 1;
   const updated = await feedback.save();
-  const io = getIO();
-  io.emit("upvoted", updated.upvoteCount);
 
   res.json(updated);
 });

@@ -5,7 +5,7 @@ import HashtagList from "./hashtag/HashtagList";
 import { useEffect } from "react";
 import { useFeedbackItemsStore } from "../stores/feedbackStore";
 
-const socket = io("https://corpcomment-production.up.railway.app");
+const socket = io("https://corp-comment-beta.vercel.app/");
 
 export default function App() {
   const fetchFeedbacks = useFeedbackItemsStore((state) => state.fetchFeedbacks);
