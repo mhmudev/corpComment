@@ -3,6 +3,7 @@ const dotenv = require("dotenv").config();
 const mongoose = require("mongoose");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const feedbackRoutes = require("./routes/feedbackRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 app.use(express.json());
@@ -14,6 +15,7 @@ mongoose
   .catch((err) => console.error(err));
 
 app.use("/api/feedbacks", feedbackRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.use(notFound);
 app.use(errorHandler);
