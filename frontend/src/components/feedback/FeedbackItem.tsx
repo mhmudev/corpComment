@@ -7,6 +7,7 @@ type FeedbackItemPropsType = { feedback: FeedbackType };
 export default function FeedbackItem({ feedback }: FeedbackItemPropsType) {
   const [open, setOpen] = useState(false);
   const [upvoteCount, setUpvoteCount] = useState(feedback.upvoteCount);
+  console.log("FeedbackItem", feedback, feedback._id);
 
   const handleUpvote = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
