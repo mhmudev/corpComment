@@ -15,11 +15,16 @@ export default function FeedbackList() {
     state.getFilteredFeedbacks()
   );
   const setFeedbacks = useFeedbackItemsStore((state) => state.setFeedbacks);
+  const feedbacks = useFeedbackItemsStore((state) => state.feedbacks);
 
   useEffect(() => {
     socket.on("newFeedback", (feedback) => {
       console.log("Received new feedback:", feedback);
-      // setFeedbacks(feedback);
+      const isFeedbackExists = feedbacks.some((f) => f._id === feedback._id);
+
+      if (!isFeedbackExists) {
+        setFeedbacks(feedback);
+      }
     });
 
     return () => {
