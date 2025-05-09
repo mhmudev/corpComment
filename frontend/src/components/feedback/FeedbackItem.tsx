@@ -1,10 +1,7 @@
 import { TriangleUpIcon } from "@radix-ui/react-icons";
 import { FeedbackType } from "../../lib/types";
 import { useState } from "react";
-import { io } from "socket.io-client";
 import { API_BASE_URL } from "../../lib/constants";
-
-const socket = io(API_BASE_URL);
 
 type FeedbackItemPropsType = { feedback: FeedbackType };
 
@@ -31,15 +28,6 @@ export default function FeedbackItem({ feedback }: FeedbackItemPropsType) {
     if (!response.ok) {
       throw new Error(errorData.message || `Error: ${response.status}`);
     }
-
-    socket.on("upvoted", (upvoted) => {
-      console.log("Received new vote:", upvoted);
-      setUpvoteCount((prev) => prev + 1);
-    });
-
-    return () => {
-      socket.off("upvoted");
-    };
   };
   return (
     <li
