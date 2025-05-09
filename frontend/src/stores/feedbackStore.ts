@@ -97,7 +97,7 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
 
     set((state) => {
       const isFeedbackExists = state.feedbacks.some(
-        (f) => f._id === newFeedback._id
+        (f) => f.text === newFeedback.text
       );
 
       if (isFeedbackExists) {
