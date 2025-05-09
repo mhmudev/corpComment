@@ -20,7 +20,7 @@ export default function FeedbackList() {
   useEffect(() => {
     socket.on("newFeedback", (feedback) => {
       console.log("Received new feedback:", feedback);
-      const isFeedbackExists = feedbacks.some((f) => f._id === feedback._id);
+      const isFeedbackExists = feedbacks.some((f) => f.text === feedback.text);
       console.log(isFeedbackExists);
       if (!isFeedbackExists) {
         setFeedbacks(feedback);
