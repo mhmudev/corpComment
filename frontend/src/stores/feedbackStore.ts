@@ -1,5 +1,6 @@
 import { create } from "zustand";
 import { FeedbackType } from "../lib/types";
+import { API_BASE_URL } from "../lib/constants";
 
 type Store = {
   feedbacks: FeedbackType[];
@@ -50,7 +51,7 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
     };
 
     set((state) => ({ feedbacks: [...state.feedbacks, newFeedback] }));
-    await fetch("https://corpcomment-production.up.railway.app/api/feedbacks", {
+    await fetch(`${API_BASE_URL}/api/feedbacks`, {
       method: "POST",
       body: JSON.stringify(newFeedback),
       headers: {
@@ -62,9 +63,7 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
   fetchFeedbacks: async () => {
     set(() => ({ isLoading: true }));
     try {
-      const response = await fetch(
-        "https://corpcomment-production.up.railway.app/api/feedbacks"
-      );
+      const response = await fetch(`${API_BASE_URL}/api/feedbacks`);
 
       if (!response.ok) {
         throw new Error();

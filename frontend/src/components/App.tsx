@@ -4,8 +4,9 @@ import Footer from "./layout/Footer";
 import HashtagList from "./hashtag/HashtagList";
 import { useEffect } from "react";
 import { useFeedbackItemsStore } from "../stores/feedbackStore";
+import { API_BASE_URL } from "../lib/constants";
 
-const socket = io("https://corpcomment-production.up.railway.app");
+const socket = io(API_BASE_URL);
 
 export default function App() {
   const fetchFeedbacks = useFeedbackItemsStore((state) => state.fetchFeedbacks);

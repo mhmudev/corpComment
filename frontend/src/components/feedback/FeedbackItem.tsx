@@ -2,8 +2,9 @@ import { TriangleUpIcon } from "@radix-ui/react-icons";
 import { FeedbackType } from "../../lib/types";
 import { useState } from "react";
 import { io } from "socket.io-client";
+import { API_BASE_URL } from "../../lib/constants";
 
-const socket = io("https://corpcomment-production.up.railway.app");
+const socket = io(API_BASE_URL);
 
 type FeedbackItemPropsType = { feedback: FeedbackType };
 
@@ -20,7 +21,7 @@ export default function FeedbackItem({ feedback }: FeedbackItemPropsType) {
     e.currentTarget.disabled = true;
 
     const response = await fetch(
-      `https://corpcomment-production.up.railway.app/api/feedbacks/${feedback._id}/upvote`,
+      `${API_BASE_URL}/api/feedbacks/${feedback._id}/upvote`,
       {
         method: "PATCH",
       }
