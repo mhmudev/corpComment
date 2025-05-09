@@ -68,7 +68,9 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
       const savedFeedback: FeedbackType = await response.json();
       set((state) => ({
         feedbacks: state.feedbacks.map((f) =>
-          f._id === tempId ? savedFeedback : f
+          f._id === tempId
+            ? { ...savedFeedback, daysAgo: newFeedback.daysAgo }
+            : { ...f, daysAgo: newFeedback.daysAgo }
         ),
       }));
     } catch (error) {
