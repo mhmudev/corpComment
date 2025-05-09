@@ -66,11 +66,13 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
       });
       if (!response.ok) throw new Error("Failed to add feedback");
       const savedFeedback: FeedbackType = await response.json();
+      const newSavedFeedback = {
+        ...savedFeedback,
+        daysAgo: newFeedback.daysAgo,
+      };
       set((state) => ({
         feedbacks: state.feedbacks.map((f) =>
-          f._id === tempId
-            ? { ...savedFeedback, daysAgo: newFeedback.daysAgo }
-            : { ...f, daysAgo: newFeedback.daysAgo }
+          f._id === tempId ? newSavedFeedback : f
         ),
       }));
     } catch (error) {
