@@ -19,7 +19,7 @@ export default function FeedbackList() {
   useEffect(() => {
     socket.on("newFeedback", (feedback) => {
       console.log("Received new feedback:", feedback);
-      setFeedbacks(feedback);
+      // setFeedbacks(feedback);
     });
 
     return () => {
