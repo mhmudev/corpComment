@@ -41,7 +41,9 @@ exports.createFeedback = [
     }
     const feedback = await Feedback.create(req.body);
     const io = getIO();
+    io.to(req.body.socketId).emit("newFeedback", feedback);
     io.emit("newFeedback", feedback);
+
     console.log("newFeedback emitted");
 
     res.status(201).json(feedback);
