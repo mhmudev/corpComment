@@ -21,7 +21,7 @@ export default function FeedbackList() {
     socket.on("newFeedback", (feedback) => {
       console.log("Received new feedback:", feedback);
       const isFeedbackExists = feedbacks.some((f) => f._id === feedback._id);
-
+      console.log(isFeedbackExists);
       if (!isFeedbackExists) {
         setFeedbacks(feedback);
       }
