@@ -50,15 +50,32 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
       badgeLetter: companyName.substring(0, 1).toUpperCase(),
     };
 
-    set((state) => ({ feedbacks: [...state.feedbacks, newFeedback] }));
-    await fetch(`${API_BASE_URL}/api/feedbacks`, {
-      method: "POST",
-      body: JSON.stringify(newFeedback),
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      },
-    });
+    const tempId = `temp-${Date.now()}`;
+    const feedbackWithTempId = { ...newFeedback, _id: tempId };
+
+    set((state) => ({ feedbacks: [...state.feedbacks, feedbackWithTempId] }));
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/feedbacks`, {
+        method: "POST",
+        body: JSON.stringify(newFeedback),
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
+      if (!response.ok) throw new Error("Failed to add feedback");
+      const savedFeedback: FeedbackType = await response.json();
+      set((state) => ({
+        feedbacks: state.feedbacks.map((f) =>
+          f._id === tempId ? savedFeedback : f
+        ),
+      }));
+    } catch (error) {
+      set((state) => ({
+        feedbacks: state.feedbacks.filter((f) => f._id !== tempId),
+      }));
+    }
   },
   fetchFeedbacks: async () => {
     set(() => ({ isLoading: true }));
@@ -97,7 +114,7 @@ export const useFeedbackItemsStore = create<Store>((set, get) => ({
 
     set((state) => {
       const isFeedbackExists = state.feedbacks.some(
-        (f) => f.text === newFeedback.text
+        (f) => f._id === newFeedback._id
       );
 
       if (isFeedbackExists) {
